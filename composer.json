@@ -1,5 +1,5 @@
 {
-    "name": "osi/trait-admin-resource",
+    "name": "osi/laravel-admin-resource",
     "require": {
         "laravel/laravel": "^5.5.*"
     },
