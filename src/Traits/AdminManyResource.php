@@ -3,7 +3,7 @@ namespace Osi\AdminResource\Traits;
 
 use Osi\AdminResource\Scopes\AutoAdminHasManyScope;
 trait AdminManyResource {
-
+	public $useAdminResource = true;
 	/**
 	 * Autocephaly
 	 *

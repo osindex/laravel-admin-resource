@@ -48,17 +48,29 @@ class AdminResource extends Model {
 	}
 	public static function Forget(String $model_type, $admin_id) {
 		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->delete();
+		if (is_array($admin_id)) {
+			$res = static::where($config_column_names['model_type'], $model_type)->whereIn($config_column_names['model_admin_key'], $admin_id)->delete();
+		} else {
+			$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->delete();
+		}
 		return $res;
 	}
 	public static function ForgetByAdmin(String $model_type, $admin_id) {
 		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->delete();
+		if (is_array($admin_id)) {
+			$res = static::where($config_column_names['model_type'], $model_type)->whereIn($config_column_names['model_admin_key'], $admin_id)->delete();
+		} else {
+			$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->delete();
+		}
 		return $res;
 	}
 	public static function ForgetByModel(String $model_type, $model_id) {
 		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_key'] => $model_id])->delete();
+		if (is_array($model_id)) {
+			$res = static::where($config_column_names['model_type'], $model_type)->whereIn($config_column_names['model_key'], $model_id)->delete();
+		} else {
+			$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_key'] => $model_id])->delete();
+		}
 		return $res;
 	}
 }
