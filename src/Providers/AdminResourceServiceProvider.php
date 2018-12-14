@@ -28,7 +28,19 @@ class AdminResourceServiceProvider extends ServiceProvider {
 				'admin-resource'
 			);
 		}
-
+		// 在容器中注册
+		// $this->app->singleton('AdminResource', function () {
+		// 	return new \Osi\AdminResource\Models\AdminResource;
+		// });
+		// $this->app->singleton('AdminOneResource', function () {
+		// 	return new \Osi\AdminResource\Traits\AdminOneResource;
+		// });
+		// $this->app->singleton('AdminOneResource', function () {
+		// 	return new \Osi\AdminResource\Traits\AdminManyResource;
+		// });
+		// $this->app->alias(\Osi\AdminResource\Models\AdminResource::class, 'AdminResource');
+		// $this->app->alias(\Osi\AdminResource\Traits\AdminManyResource::class, 'AdminManyResource');
+		// $this->app->alias(\Osi\AdminResource\Traits\AdminOneResource::class, 'AdminOneResource');
 	}
 
 }
