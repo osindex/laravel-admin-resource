@@ -22,18 +22,18 @@ class AutoAdminHasManyScope implements Scope {
 			$force = is_null($model->force) ? $column_names['forceOne'] : $model->force;
 			$model_admin_key = $model->model_admin_key ?? $column_names['model_admin_key'];
 
-			$model_keys = \Osi\AdminResource\Models\AdminResource::where($model_admin_key, \Auth::id())->where($column_names['model_type'], $model->getTable())->select($column_names['model_key'])->get()
+			$model_keys = \Osi\AdminResource\Models\AdminResource::where($model_admin_key, \Auth::id())->where($column_names['model_type'], $model->getTable())->pluck($column_names['model_key']);
 			if ($force) {
-				return $this->queryApply($builder,$model_admin_key, $model_keys);
+				return $this->queryApply($builder, $model_admin_key, $model_keys);
 			} else {
-				if($model_keys->isNotEmpty()){
-				return $this->queryApply($builder,$model_admin_key, $model_keys);
+				if ($model_keys->isNotEmpty()) {
+					return $this->queryApply($builder, $model_admin_key, $model_keys);
 				}
 			}
 		}
-			return $builder;
+		return $builder;
 	}
-	public function queryApply($builder, $model_admin_key,$keys) {
+	public function queryApply($builder, $model_admin_key, $keys) {
 		return $builder->whereIn($model_admin_key, $keys);
 	}
 }
