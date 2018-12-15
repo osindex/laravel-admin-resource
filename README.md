@@ -64,6 +64,7 @@ use Zoo;
 class Animal extends Model {
 	use AdminManyResource;
 	public $model_type = Zoo::getTable();
+	public $model_table_key = 'zoo_id';
 }
 
 
