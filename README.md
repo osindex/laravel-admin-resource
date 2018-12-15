@@ -52,4 +52,20 @@ select * from Zoo where id in (select model_id from AdminResouce where admin_id 
 #if force === false also show all data
 
 
+# if you want use MorphToMany define $model_type = 'table_name' like:
+Animal{id,Zoo_id,...}
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+use Osi\AdminResource\Traits\AdminManyResource;
+use Zoo;
+
+class Animal extends Model {
+	use AdminManyResource;
+	public $model_type = Zoo::getTable();
+}
+
+
+
 ```
