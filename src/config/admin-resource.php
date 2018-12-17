@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'table_name' => 'admin_resource',
+	'table_name' => 'admin_models',
 
 	'column_names' => [
 		/*
@@ -13,8 +13,8 @@ return [
 		*/
 		'forceOne' => false,
 		'forceMany' => false,
-		'model_key' => 'model_id',
-		'model_type' => 'model_type',
-		'model_admin_key' => 'admin_id',
+		'model_id' => 'admin_model_id',
+		'model_type' => 'admin_model_type',
+		'model_admin_key' => 'admin_user_id',
 	],
 ];

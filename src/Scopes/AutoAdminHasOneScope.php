@@ -23,6 +23,7 @@ class AutoAdminHasOneScope implements Scope {
 				return $this->queryApply($builder, $model_admin_key);
 			} else {
 				// if not exsits show all
+				// get_class()
 				if (\DB::table($model->getTable())->where($model_admin_key, \Auth::id())->exists()) {
 					return $this->queryApply($builder, $model_admin_key);
 				}
