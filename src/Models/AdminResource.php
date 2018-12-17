@@ -31,19 +31,33 @@ class AdminResource extends Model {
 		}
 		return $data;
 	}
-	public static function Get(String $model_type, $admin_id) {
+	public static function Get($model_type, $admin_id) {
 		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->get();
+		$res = static::when(is_array($model_type), function ($query) use ($config_column_names, $model_type) {
+			return $query->whereIn($config_column_names['model_type'], $model_type);
+		}, function ($query) use ($config_column_names, $model_type) {
+			return $query->where($config_column_names['model_type'], $model_type);
+		})->when(is_array($admin_id), function ($query) use ($config_column_names, $admin_id) {
+			return $query->whereIn($config_column_names['model_admin_key'], $admin_id);
+		}, function ($query) use ($config_column_names, $admin_id) {
+			return $query->where($config_column_names['model_admin_key'], $admin_id);
+		})->get();
 		return $res;
 	}
-	public static function GetByAdmin(String $model_type, $admin_id) {
-		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_admin_key'] => $admin_id])->get();
-		return $res;
+	public static function GetByAdmin($model_type, $admin_id) {
+		return static::Get($model_type, $admin_id);
 	}
-	public static function GetByModel(String $model_type, $model_id) {
+	public static function GetByModel($model_type, $model_id) {
 		$config_column_names = self::getConfig();
-		$res = static::where([$config_column_names['model_type'] => $model_type, $config_column_names['model_key'] => $model_id])->count();
+		$res = static::when(is_array($model_type), function ($query) use ($config_column_names, $model_type) {
+			return $query->whereIn($config_column_names['model_type'], $model_type);
+		}, function ($query) use ($config_column_names, $admin_id) {
+			return $query->where($config_column_names['model_type'], $model_type);
+		})->when(is_array($model_id), function ($query) use ($config_column_names, $model_id) {
+			return $query->whereIn($config_column_names['model_key'], $model_id);
+		}, function ($query) use ($config_column_names, $model_id) {
+			return $query->where($config_column_names['model_key'], $model_id);
+		})->get();
 		return $res;
 	}
 	public static function Forget(String $model_type, $admin_id) {
